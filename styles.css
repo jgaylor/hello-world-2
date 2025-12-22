@@ -46,3 +46,39 @@ small {
   text-align: center;
 }
 
+/* Container setup (optional, for your 300x300 requirement) */
+.animation-container {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  margin: 0 auto;
+}
+
+/* The Icon Style */
+.hand-icon {
+  width: 120px;
+  height: 120px;
+  fill: none;
+  stroke: #000000;
+  stroke-width: 1.5; /* Adjusted for a lighter "Untitled UI" feel */
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  
+  /* Animation settings */
+  transform-origin: bottom center;
+  animation: wave-and-pause 3s ease-in-out infinite;
+}
+
+/* Wave Logic: Movement happens until 50%, then stays still until 100% */
+@keyframes wave-and-pause {
+  0%   { transform: rotate(0deg); }
+  10%  { transform: rotate(12deg); }
+  20%  { transform: rotate(-8deg); }
+  30%  { transform: rotate(12deg); }
+  40%  { transform: rotate(-8deg); }
+  50%  { transform: rotate(0deg); }
+  100% { transform: rotate(0deg); } /* This creates the pause */
+}

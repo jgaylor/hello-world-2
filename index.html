@@ -6,86 +6,21 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
-        }
-      }
-    </script>
-
-    <script type="module">
-      import * as THREE from "three";
-
-      // Setup scene
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color(0xffffff);
-
-      const camera = new THREE.PerspectiveCamera(50, 1, 0.1, 1000);
-      camera.position.z = 5;
-
-      const renderer = new THREE.WebGLRenderer({ antialias: true });
-      renderer.setSize(300, 300);
-      document
-        .getElementById("canvas-container")
-        .appendChild(renderer.domElement);
-
-      // Create a Group to hold the "hand" parts
-      const hand = new THREE.Group();
-
-      // Material: Black wireframe
-      const material = new THREE.MeshBasicMaterial({
-        color: 0x000000,
-        wireframe: true,
-      });
-
-      // Palm
-      const palmGeo = new THREE.BoxGeometry(1.2, 1.2, 0.3);
-      const palm = new THREE.Mesh(palmGeo, material);
-      hand.add(palm);
-
-      // Fingers (4 fingers + 1 thumb)
-      const fingers = [];
-      for (let i = 0; i < 5; i++) {
-        const fingerGeo = new THREE.BoxGeometry(0.2, 0.8, 0.2);
-        const finger = new THREE.Mesh(fingerGeo, material);
-
-        // Position fingers relative to palm
-        finger.position.y = 0.9;
-        finger.position.x = i * 0.3 - 0.6;
-
-        // Create a pivot for each finger to allow waving
-        const pivot = new THREE.Group();
-        pivot.position.y = 0.5; // Joint at the top of the palm
-        pivot.add(finger);
-
-        fingers.push(pivot);
-        hand.add(pivot);
-      }
-
-      scene.add(hand);
-
-      // Animation Loop
-      function animate() {
-        requestAnimationFrame(animate);
-
-        const time = Date.now() * 0.002;
-
-        // Slow wave motion for the whole hand
-        hand.rotation.z = Math.sin(time) * 0.2;
-        hand.rotation.y = Math.cos(time * 0.5) * 0.1;
-
-        // Subtle finger movement
-        fingers.forEach((f, index) => {
-          f.rotation.z = Math.sin(time + index * 0.3) * 0.1;
-        });
-
-        renderer.render(scene, camera);
-      }
-
-      animate();
-    </script>
     <main class="container">
+      <div class="animation-container">
+        <svg
+          class="hand-icon"
+          viewBox="0 0 24 24"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M18 11V7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v4" />
+          <path d="M14 10V5a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7" />
+          <path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8" />
+          <path
+            d="M18 8a2 2 0 1 1 4 0v6a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"
+          />
+        </svg>
+      </div>
       <h1>Hello world, from Cursor! New journey begins.</h1>
     </main>
   </body>
